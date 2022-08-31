@@ -1,4 +1,4 @@
-import { Model, INTEGER } from 'sequelize';
+import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
 // import OtherModel from './OtherModel';
 
@@ -21,19 +21,19 @@ Users.init({
   },
   username: {
     allowNull: false,
-    type: INTEGER,
+    type: STRING,
   },
   role: {
-    type: INTEGER,
+    type: STRING,
     allowNull: false,
   },
   email: {
-    type: INTEGER,
+    type: STRING,
     allowNull: false,
     unique: true,
   },
   password: {
-    type: INTEGER,
+    type: STRING,
     allowNull: false,
   },
 
