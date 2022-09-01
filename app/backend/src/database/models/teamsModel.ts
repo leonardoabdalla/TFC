@@ -1,21 +1,26 @@
-import { Model, STRING } from 'sequelize';
+import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 class Team extends Model {
-  // public <campo>!: <tipo>;
-  teamName: string;
+  public id: number;
+  public teamName: string;
 }
 
 Team.init({
-  // ... Campos
-  teamName: STRING,
-
+  id: {
+    type: INTEGER,
+    allowNull: false,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  teamName: {
+    type: STRING,
+    allowNull: false,
+  },
 }, {
-  // ... Outras configs
   underscored: true,
   sequelize: db,
-  modelName: 'team',
+  modelName: 'teams',
   timestamps: false,
 });
 
