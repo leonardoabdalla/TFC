@@ -8,7 +8,7 @@ class Match extends Model {
   public homeTeamGoals: number;
   public awayTeam: number;
   public awayTeamGoals: number;
-  public inProgress: number;
+  public inProgress: boolean;
 }
 
 Match.init({
