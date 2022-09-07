@@ -1,10 +1,15 @@
 import { Request, Response } from 'express';
-import teamService from '../services/teamsService';
+import teamsService from '../services/teamsService';
 
 const teamsController = {
   getAll: async (req: Request, res: Response) => {
-    const rows: any = await teamService.getAll();
-    res.status(rows);
+    const rows: any = await teamsService.getAll();
+    res.status(200).json(rows);
+  },
+  getById: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const team = await teamsService.getById(id);
+    res.status(200).json(team);
   },
 };
 

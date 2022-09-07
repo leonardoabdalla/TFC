@@ -5,6 +5,10 @@ const teamsService = {
     const getAllTeams = await dbTeams.findAll();
     return getAllTeams;
   },
+  getById: async (id: any) => {
+    const getByIdTeam = await dbTeams.findByPk(id);
+    return getByIdTeam;
+  },
 };
 
 export default teamsService;
