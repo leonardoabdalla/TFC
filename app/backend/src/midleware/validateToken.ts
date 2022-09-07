@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwtService from '../services/jwtService';
 
-const validateToken = (req: Request, _res: Response, next: NextFunction) => {
+const validateToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const { authorization } = req.headers;
     if (authorization === undefined) {
@@ -9,8 +9,10 @@ const validateToken = (req: Request, _res: Response, next: NextFunction) => {
       error.name = 'UnauthorizedError';
       throw error;
     }
-    jwtService.validateToken(authorization);
-    next();
+    const user = jwtService.validateToken(authorization);
+    const { data }: any = user;
+    const { role }: any = data;
+    res.status(200).json({ role });
   } catch (e) {
     next(e);
   }

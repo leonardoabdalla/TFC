@@ -4,7 +4,7 @@ import validateToken from '../midleware/validateToken';
 
 export const router = Router();
 
-router.get('/validate', validateToken, authController.validateToken);
+router.get('/validate', validateToken);
 router.post('/', authController.login);
 
 export default router;

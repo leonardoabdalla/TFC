@@ -45,6 +45,10 @@ const authService = {
     const data = jwtService.validateToken(token);
     return data;
   },
+
+  // decryptToken: (autthorization: string) => {
+  //  const data = Jwt.decodeToken(autthorization);
+  // },
 };
 
 export default authService;
