@@ -9,6 +9,9 @@ const midlewareErr: ErrorRequestHandler = async (err, _req, res, _next) => {
     case 'ValidaEmail':
       res.status(401).json({ message });
       break;
+    case 'nonexistent':
+      res.status(404).json({ message });
+      break;
     case 'UnauthorizedError':
       res.status(401).json({ message });
       break;
