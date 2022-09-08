@@ -40,6 +40,19 @@ const matchesModel = {
       inProgress: false,
     }, { where: { id } });
   },
+
+  updateGoals: async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
+    const getByIdMatches = await dbMatches.findByPk(id);
+    if (getByIdMatches?.inProgress === false) {
+      const e = new Error('Partida está finalizada');
+      e.name = 'nonexistent';
+      throw e;
+    }
+    await dbMatches.update({
+      homeTeamGoals,
+      awayTeamGoals,
+    }, { where: { id } });
+  },
 };
 
 export default matchesModel;

@@ -19,6 +19,13 @@ const matchesController = {
     await matchesServide.updateFinished(id);
     res.status(200).json({ message: 'Finished' });
   },
+
+  updateGoals: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await matchesServide.updateGoals(id, homeTeamGoals, awayTeamGoals);
+    res.status(200).json({ message: 'alteração realizada' });
+  },
 };
 
 export default matchesController;
