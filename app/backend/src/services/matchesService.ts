@@ -1,5 +1,6 @@
 import Team from '../database/models/teamsModel';
 import dbMatches from '../database/models/matchModel';
+import teamsService from './teamsService';
 
 const matchesModel = {
   getAll: async (query: any) => {
@@ -30,7 +31,13 @@ const matchesModel = {
       awayTeamGoals,
       inProgress: true,
     });
-
+    const teamHome = await teamsService.getById(homeTeam);
+    const teamaway = await teamsService.getById(awayTeam);
+    if (teamHome === teamaway) {
+      const e = new Error('It is not possible to create a match with two equal teams');
+      e.name = 'ValidaEmail';
+      throw e;
+    }
     return matchCreate;
   },
 
