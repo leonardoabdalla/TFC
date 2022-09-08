@@ -13,8 +13,7 @@ const matchesModel = {
       });
       return matches;
     }
-
-    const valueInProgress = Boolean(inProgress);
+    const valueInProgress = (inProgress === 'true');
     const matchFilter = await dbMatches.findAll({
       include: [{
         model: Team, as: 'teamHome', attributes: ['teamName'],

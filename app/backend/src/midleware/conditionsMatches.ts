@@ -4,7 +4,6 @@ const matchesConditions = {
   conditiones: async (homeTeam: any, awayTeam: any) => {
     const teamHome = await teamsService.getById(homeTeam);
     const teamAway = await teamsService.getById(awayTeam);
-    console.log(teamHome);
     if (teamHome === null || teamAway === null) {
       const e = new Error('There is no team with such id!');
       e.name = 'nonexistent';
