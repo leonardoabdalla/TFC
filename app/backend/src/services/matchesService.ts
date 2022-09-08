@@ -33,6 +33,12 @@ const matchesModel = {
 
     return matchCreate;
   },
+
+  updateFinished: async (id: any) => {
+    await dbMatches.update({
+      inProgress: false,
+    }, { where: { id } });
+  },
 };
 
 export default matchesModel;

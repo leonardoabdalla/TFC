@@ -13,6 +13,12 @@ const matchesController = {
     const getAdd = await matchesServide.getAdd(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals);
     res.status(201).json(getAdd);
   },
+
+  updateFinished: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    await matchesServide.updateFinished(id);
+    res.status(200).json({ message: 'Finished' });
+  },
 };
 
 export default matchesController;
