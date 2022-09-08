@@ -1,6 +1,5 @@
 import Team from '../database/models/teamsModel';
 import dbMatches from '../database/models/matchModel';
-import teamsService from './teamsService';
 
 const matchesModel = {
   getAll: async (query: any) => {
@@ -14,11 +13,12 @@ const matchesModel = {
       return matches;
     }
 
+    const valueInProgress = Boolean(inProgress);
     const matchFilter = await dbMatches.findAll({
       include: [{
         model: Team, as: 'teamHome', attributes: ['teamName'],
       }, { model: Team, as: 'teamAway', attributes: ['teamName'] }],
-      where: { inProgress },
+      where: { inProgress: valueInProgress },
     });
     return matchFilter;
   },
@@ -31,9 +31,7 @@ const matchesModel = {
       awayTeamGoals,
       inProgress: true,
     });
-    const teamHome = await teamsService.getById(homeTeam);
-    const teamaway = await teamsService.getById(awayTeam);
-    if (teamHome === teamaway) {
+    if (homeTeam === awayTeam) {
       const e = new Error('It is not possible to create a match with two equal teams');
       e.name = 'ValidaEmail';
       throw e;
