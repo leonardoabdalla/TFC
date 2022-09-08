@@ -10,9 +10,6 @@ const authController = {
     res.status(200).json({ token });
   },
 
-  validateToken: (_req: Request, res: Response) => {
-    res.status(200).end();
-  },
 };
 
 export default authController;
