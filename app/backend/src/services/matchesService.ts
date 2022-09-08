@@ -24,7 +24,7 @@ const matchesModel = {
   },
 
   getAdd: async (homeTeam: any, awayTeam: any, homeTeamGoals: any, awayTeamGoals: any) => {
-    matchesConditions.conditiones(homeTeam, awayTeam);
+    await matchesConditions.conditiones(homeTeam, awayTeam);
     const matchCreate = await dbMatches.create({
       homeTeam,
       awayTeam,
