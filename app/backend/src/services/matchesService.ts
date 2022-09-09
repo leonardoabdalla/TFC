@@ -23,7 +23,7 @@ const matchesModel = {
     return matchFilter;
   },
 
-  getAdd: async (homeTeam: any, awayTeam: any, homeTeamGoals: any, awayTeamGoals: any) => {
+  getAdd: async (homeTeam: number, awayTeam: number, homeTeamGoals: number, awayTeamGoals: any) => {
     await matchesConditions.conditiones(homeTeam, awayTeam);
     const matchCreate = await dbMatches.create({
       homeTeam,
@@ -41,7 +41,7 @@ const matchesModel = {
     }, { where: { id } });
   },
 
-  updateGoals: async (id: any, homeTeamGoals: any, awayTeamGoals: any) => {
+  updateGoals: async (id: any, homeTeamGoals: number, awayTeamGoals: number) => {
     const getByIdMatches = await dbMatches.findByPk(id);
     if (getByIdMatches?.inProgress === false) {
       const e = new Error('Partida está finalizada');
