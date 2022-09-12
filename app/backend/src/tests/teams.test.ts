@@ -43,4 +43,21 @@ describe('Testando a rota getAll de teams', () => {
 
     });
 
+    it('getById de teams realizado com sucesso', async () => {
+        const teamsMock: any = {
+                "id": 1,
+                "teamName": "Avaí/Kindermann"
+            };
+
+        sinon.stub(db, 'findByPk').resolves(teamsMock);
+
+        const response = await chai.request(app).get('/teams/1');
+        
+        chai.expect(response.status).to.be.eq(200);
+        chai.expect(response.body).to.be.deep.equal(teamsMock);
+
+        sinon.restore();
+
+    });
+
 });
