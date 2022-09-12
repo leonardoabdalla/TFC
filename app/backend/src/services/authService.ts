@@ -23,6 +23,7 @@ const authService = {
   login: async (email: string, password: string) => {
     const user = await Users.findOne({ where: { email } });
 
+    console.log(user);
     if (!user) {
       const e = new Error('Incorrect email or password');
       e.name = 'ValidaEmail';
