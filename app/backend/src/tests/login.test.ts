@@ -83,8 +83,6 @@ describe('Testando a rota Login', () => {
 
         const response = await chai.request(app).post('/login').send(userBody)
 
-        console.log(response.body);
-
         chai.expect(response.status).to.be.eq(401); // não sendo array e objetos utilizar eq
         chai.expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password'}); // deep para objetos/ arrays
         
@@ -102,8 +100,6 @@ describe('Testando a rota Login', () => {
         sinon.stub(db, 'findOne').resolves(undefined)
 
         const response = await chai.request(app).post('/login').send(userBody)
-
-        console.log(response.body);
 
         chai.expect(response.status).to.be.eq(401); // não sendo array e objetos utilizar eq
         chai.expect(response.body).to.be.deep.equal({ message: 'Incorrect email or password'}); // deep para objetos/ arrays

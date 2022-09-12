@@ -12,7 +12,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Testando a rota getAllde matches', () => {
+describe('Testando a rota getAll de matches', () => {
     it('getAll de matches realizado com sucesso', async () => {
         const matchesMock: any = [
           {
@@ -68,5 +68,91 @@ describe('Testando a rota getAllde matches', () => {
         
         sinon.restore();
 
-    })
+    });
+
+    it('inProgress=true de matches realizado com sucesso', async () => {
+      const matchesMock: any = [
+        {
+          "id": 41,
+          "homeTeam": 16,
+          "homeTeamGoals": 2,
+          "awayTeam": 9,
+          "awayTeamGoals": 0,
+          "inProgress": true,
+          "teamHome": {
+            "teamName": "São Paulo"
+          },
+          "teamAway": {
+            "teamName": "Internacional"
+          }
+        },
+        {
+          "id": 42,
+          "homeTeam": 6,
+          "homeTeamGoals": 1,
+          "awayTeam": 1,
+          "awayTeamGoals": 0,
+          "inProgress": true,
+          "teamHome": {
+            "teamName": "Ferroviária"
+          },
+          "teamAway": {
+            "teamName": "Avaí/Kindermann"
+          }
+        }
+      ];
+
+      sinon.stub(db, 'findAll').resolves(matchesMock);
+
+      const response = await chai.request(app).get('/matches?inProgress=true');
+
+      chai.expect(response.status).to.be.eq(200);
+      chai.expect(response.body).to.be.deep.equal(matchesMock);
+      
+      sinon.restore();
+
+  });
+
+  it('inProgress=false de matches realizado com sucesso', async () => {
+    const matchesMock: any = [
+      {
+        "id": 41,
+        "homeTeam": 16,
+        "homeTeamGoals": 2,
+        "awayTeam": 9,
+        "awayTeamGoals": 0,
+        "inProgress": false,
+        "teamHome": {
+          "teamName": "São Paulo"
+        },
+        "teamAway": {
+          "teamName": "Internacional"
+        }
+      },
+      {
+        "id": 42,
+        "homeTeam": 6,
+        "homeTeamGoals": 1,
+        "awayTeam": 1,
+        "awayTeamGoals": 0,
+        "inProgress": false,
+        "teamHome": {
+          "teamName": "Ferroviária"
+        },
+        "teamAway": {
+          "teamName": "Avaí/Kindermann"
+        }
+      }
+    ];
+
+    sinon.stub(db, 'findAll').resolves(matchesMock);
+
+    const response = await chai.request(app).get('/matches?inProgress=false');
+
+    chai.expect(response.status).to.be.eq(200);
+    chai.expect(response.body).to.be.deep.equal(matchesMock);
+    
+    sinon.restore();
+
+})
 });
