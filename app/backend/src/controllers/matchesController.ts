@@ -9,6 +9,7 @@ const matchesController = {
   },
 
   getAdd: async (req:Request, res: Response) => {
+    console.log('cheguei aqui');
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
     const getAdd = await matchesServide.getAdd(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals);
     res.status(201).json(getAdd);

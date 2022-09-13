@@ -3,6 +3,10 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import db from '../database/models/matchModel';
+import dbUser from '../database/models/usersModel';
+import * as jwt from 'jsonwebtoken';
+import dbTeams from '../database/models/teamsModel';
+
 
 import { app } from '../app';
 
@@ -154,5 +158,60 @@ describe('Testando a rota getAll de matches', () => {
     
     sinon.restore();
 
-})
+  });
+
+  it('Testando o POST do matches', async () => {
+
+    const userBody: any = {
+      email: 'admin@admin.com',
+      password: 'secret_admin'
+  }
+
+
+    const matchBody: any = {
+      "homeTeam": 16, 
+      "awayTeam": 8,
+      "homeTeamGoals": 2,
+      "awayTeamGoals": 2
+    };
+
+    const matchReturn: any = {
+      "id": 1,
+      "homeTeam": 16,
+      "homeTeamGoals": 2,
+      "awayTeam": 8,
+      "awayTeamGoals": 2,
+      "inProgress": true,
+    }
+
+    const teams: any = [
+      {
+        id:1,
+        team_name: 'Avaí/Kindermann',
+      },
+      {
+        id:2,
+        team_name: 'Bahia',
+      }
+    ];
+
+
+    sinon.stub(jwt, 'verify').returns('validação do jwt' as any);
+
+
+    sinon.stub(db, 'create').resolves(matchReturn);
+
+    const retornoId = sinon.stub(dbTeams, 'findByPk');
+        retornoId.onCall(0).resolves(teams[0]);
+        retornoId.onCall(1).resolves(teams[1]);
+
+    const response = await chai.request(app).post('/matches').send(matchBody).set({ Authorization: 'token'});
+    console.log('body ====> ', response.body, 'status ===> ', response.status);
+
+    chai.expect(response.status).to.be.eq(201);
+    chai.expect(response.body).to.be.deep.equal(matchReturn);
+    
+    sinon.restore();
+
+  })
 });
