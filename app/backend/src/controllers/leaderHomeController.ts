@@ -3,12 +3,12 @@ import leaderService from '../services/leaderHomeService';
 
 const leaderController = {
   homeTeam: async (req: Request, res: Response) => {
-    const rows: any = await leaderService.homeTeam();
+    const rows = await leaderService.homeTeam();
     res.status(200).json(rows);
   },
 
   awayTeam: async (req: Request, res: Response) => {
-    const rows: any = await leaderService.awayTeam();
+    const rows = await leaderService.awayTeam();
     res.status(200).json(rows);
   },
 };

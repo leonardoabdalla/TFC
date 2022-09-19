@@ -73,6 +73,7 @@ const leaderService = {
     const [getAllTeamsAway] = await db.query(teamAway);
     return getAllTeamsAway;
   },
+
 };
 
 export default leaderService;
