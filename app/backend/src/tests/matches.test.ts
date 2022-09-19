@@ -205,7 +205,6 @@ describe('Testando a rota getAll de matches', () => {
         retornoId.onCall(1).resolves(teams[1]);
 
     const response = await chai.request(app).post('/matches').send(matchBody).set({ Authorization: 'token'});
-    console.log('body ====> ', response.body, 'status ===> ', response.status);
 
     chai.expect(response.status).to.be.eq(201);
     chai.expect(response.body).to.be.deep.equal(matchReturn);
@@ -237,4 +236,29 @@ describe('Testando a rota getAll de matches', () => {
       sinon.restore();
     });
   });
+
+  // it('testando a rota /matches/id', async () => {
+
+  //  beforeEach(() => {
+  //    sinon.stub(db, 'update').resolves();
+  //  })
+  //  afterEach(() => {
+  //    sinon.restore();
+  //  })
+
+  //  it('deve retornar status 200', async () => {
+  //    const chaiHttpResponse: Response = await chai.request(app).patch('/matches/45');
+  //    expect(chaiHttpResponse).to.have.status(200);
+  //  });
+
+  //  it('deve retornar messagem de sucesso, Finished ', async () => {
+  //    const chaiHttpResponse: Response = await chai.request(app).patch('/matches/45');
+
+  //    expect(chaiHttpResponse.body).to.have.property('message');
+  //    expect(chaiHttpResponse.body.message).to.be.equal('alteração realizada');
+
+  //    sinon.restore();
+  //  });
+  //});
+
 });
