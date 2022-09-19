@@ -3,7 +3,6 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import db from '../database/models/matchModel';
-import dbUser from '../database/models/usersModel';
 import * as jwt from 'jsonwebtoken';
 import dbTeams from '../database/models/teamsModel';
 
@@ -213,5 +212,29 @@ describe('Testando a rota getAll de matches', () => {
     
     sinon.restore();
 
-  })
+  });
+
+  it('testando a rota /matches/id/finish', async () => {
+
+    beforeEach(() => {
+      sinon.stub(db, 'update').resolves();
+    })
+    afterEach(() => {
+      sinon.restore();
+    })
+
+    it('deve retornar status 200', async () => {
+      const chaiHttpResponse: Response = await chai.request(app).patch('/matches/1/finish');
+      expect(chaiHttpResponse).to.have.status(200);
+    });
+
+    it('deve retornar messagem de sucesso, Finished ', async () => {
+      const chaiHttpResponse: Response = await chai.request(app).patch('/matches/1/finish');
+
+      expect(chaiHttpResponse.body).to.have.property('message');
+      expect(chaiHttpResponse.body.message).to.be.equal('Finished');
+
+      sinon.restore();
+    });
+  });
 });
