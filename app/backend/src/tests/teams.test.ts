@@ -12,7 +12,12 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+
 describe('Testando a rota getAll de teams', () => {
+
+  beforeEach(() => {
+    sinon.restore();
+  })
     it('getAll de teams realizado com sucesso', async () => {
         const teamsMock: any = [
             {
